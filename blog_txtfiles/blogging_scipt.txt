@@ -1,0 +1,19 @@
+overwrite_permission = no
+blogiconsize_sm = 6
+blogiconsize_md = 6
+blogiconsize_lg = 4
+
+/////////////////////////////////////
+blog_date = November 5, 2022
+html_filename = blog-blogging_script.html
+blog_title = Blogging Script
+blog_img = blogging_script
+blog_type = prose
+
+blog_content = [
+I made something today. Tonight. This Morning...I'm not sure cuz it's late. 
+Nevertheless. 
+I wrote a script to streamline the processing of creating these blog post webpages. 
+Now I can write out my thoughts in a simple a text file and this new script will create a webpage page for the new blog post. As a matter of fact, this blog post webpage was generated with said script.
+]
+

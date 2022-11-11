@@ -1,4 +1,4 @@
-overwrite_permission = no
+overwrite_permission = yes
 blogiconsize_sm = 6
 blogiconsize_md = 6
 blogiconsize_lg = 4
@@ -13,7 +13,7 @@ blog_type = prose
 /////////////////////////////////////
 blog_content : 
 
-summary: -->spoiler alert<--
+Summary: (spoiler alert)
 "The Midnight Library" by Matt Haig explores the concepts of regret, life potential, and connection through the lens of woman who is allowed to travel between different realities of her own within the multiverse.  The main character Nora Seed lives as a depressed music store clerk who teaches piano on the side. As any other person, Nora has faced many pivotal decisions in her life, and we find her in a state really wallowing on the perception that at every juncture she has always chosen the path of greatest failure. It is in this state that she discovers her cat is dead. Nora considers her cat Voltaire to have been her only remaining companion, so losing him is enough to push Nora's thoughts into the suicidal. 
 
 Nora follows through on her suicidal thoughts, and doesn't quite make it to the other side. Instead, she discovers a library in the life-death-limbo-dimension that allows her consience to travel the multiverse and taste the different variations of her life that branch off with every decision she's made. Nora visits realities where she becomes that Olympic athlete she could have been, the renowed scientists she might have become, the rockstar she almost was, and many more. 

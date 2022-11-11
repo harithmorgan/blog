@@ -12,10 +12,10 @@ blog_type = prose
 
 /////////////////////////////////////
 blog_content : 
-A well worn cliche: Life is a journey not a deatination, is a truth I have discovered time and again through my months on this earth. Having lived through the past 24 hours, though, I wonder if the point of departure deserves a little more airtime.
+A well worn cliche: Life is a journey not a destination, is a truth I have discovered time and again through my months on this earth. Having lived through the past 24 hours, though, I wonder if the point of departure deserves a little more airtime.
 
 Madrid-Barajas
-It is saturday morning 6:18am and we are methodically stuffing our belongings into our bags. Me, I haphazardly toss my toothbrush into my duffle bag just before pressing my knee into the neat piles of clean, dirty, and semi-dirty laundry begging to spill onto the floor just so I can get the zipper closed. I'm not rushing. But we do have only minutes before our scheduled airport taxi drives off.
+It is saturday morning 6:18am and we are methodically stuffing our belongings into our bags. I haphazardly toss my toothbrush into my duffle bag. I press my knee into the neat piles of clean, dirty, and semi-dirty laundry--that are begging to spill onto the floor-- to get the zipper closed. I'm not rushing. But we do have only minutes before our scheduled airport taxi drives off.
 
 Akrem, Taj, and I make it through the cobblestone walkways of Marrakech, into the taxi, to the airport, and through security. Our plane takes off the runway in Morocco and lands safely in Madrid, Spain. Today's itinerary: Marrakech, Madrid, and back to Casablanca all before dinner. Somos Viajeros. International travelers. Very cool. Mashaallah :). 
 

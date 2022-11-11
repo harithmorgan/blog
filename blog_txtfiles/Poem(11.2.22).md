@@ -1,4 +1,4 @@
-overwrite_permission = no
+overwrite_permission = yes
 blogiconsize_sm = 6
 blogiconsize_md = 6
 blogiconsize_lg = 4
@@ -6,7 +6,7 @@ blogiconsize_lg = 4
 /////////////////////////////////////
 blog_date = November 2, 2022
 html_filename = blog-untitledpoem1.html
-blog_title = Poem: Untitled I
+blog_title = Untitled I
 blog_img = default
 blog_type = poem
 
@@ -29,5 +29,5 @@ Having tamed a mountain and set its course in stone
 
 it is easier to raise men from amongst boys
 than to teach grown boys to be men
-
-The path of least resistance is seldom that of greatest triumph....
+]
+~~The path of least resistance is seldom that of greatest triumph....~~

@@ -1,10 +1,10 @@
-overwrite_permission = no
+overwrite_permission = yes
 blogiconsize_sm = 6
 blogiconsize_md = 6
 blogiconsize_lg = 4
 
 /////////////////////////////////////
-blog_date = November 5, 2022
+blog_date = November 2, 2022
 html_filename = poem-cancled_flight.html
 blog_title = Poem: Canceled Flight
 blog_img = default
@@ -12,7 +12,6 @@ blog_type = poem
 
 /////////////////////////////////////
 blog_content : 
-(about canceled flight)
 
 We are always exactly where we are meant to be
 We are exactly where we are meant to be
@@ -28,10 +27,10 @@ It is hard to keep calm
 I cannot help but ponder deeper realities
 Cannot help but wonder
 
-Are we
-Where are we
-Where are we meant to be
-Where are we meant to be exactly
-Where are we meant to be exactly where we are
+Are we?
+Where are we?
+Where are we meant to be?
+Where are we meant to be exactly?
+Where are we meant to be exactly where we are?
 
 

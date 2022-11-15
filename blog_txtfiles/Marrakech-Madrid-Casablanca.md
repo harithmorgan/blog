@@ -1,4 +1,4 @@
-overwrite_permission = no
+overwrite_permission = yes
 blogiconsize_sm = 6
 blogiconsize_md = 6
 blogiconsize_lg = 4

@@ -1,4 +1,4 @@
-overwrite_permission = no
+overwrite_permission = yes
 blogiconsize_sm = 6
 blogiconsize_md = 6
 blogiconsize_lg = 4
@@ -7,7 +7,7 @@ blogiconsize_lg = 4
 blog_date = November 5, 2022
 html_filename = blog-blogging_script.html
 blog_title = Blogging Script
-blog_img = blogging_script
+blog_img = blogscript
 blog_type = prose
 
 blog_content = [

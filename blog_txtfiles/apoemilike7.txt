@@ -7,7 +7,7 @@ blogiconsize_lg = 4
 blog_date = October 14, 2022
 html_filename = blog-apoemilike7.html
 blog_title = A Poem I Like #7
-blog_img = default
+blog_img = oadnbta_poem
 blog_type = prose
 
 blog_content = [

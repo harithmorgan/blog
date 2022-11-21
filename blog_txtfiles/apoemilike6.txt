@@ -7,7 +7,7 @@ blogiconsize_lg = 4
 blog_date = October 12, 2022
 html_filename = blog-apoemilike6.html
 blog_title = A Poem I Like #6
-blog_img = default
+blog_img = brown_girl_dreaming
 blog_type = prose
 
 blog_content = [

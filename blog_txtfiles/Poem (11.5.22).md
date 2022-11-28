@@ -4,11 +4,12 @@ blogiconsize_md = 6
 blogiconsize_lg = 4
 
 /////////////////////////////////////
-blog_date = November 2, 2022
-html_filename = poem-cancled_flight.html
+blog_date = November 5, 2022
+html_filename = poem-canceled_flight.html
 blog_title = Poem: Canceled Flight
 blog_img = default
 blog_type = poem
+blog_tags = poetry
 
 /////////////////////////////////////
 blog_content : 
@@ -32,5 +33,6 @@ Where are we?
 Where are we meant to be?
 Where are we meant to be exactly?
 Where are we meant to be exactly where we are?
+]
 
 

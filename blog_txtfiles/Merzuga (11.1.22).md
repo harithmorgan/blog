@@ -1,4 +1,4 @@
-overwrite_permission = no
+overwrite_permission = yes
 blogiconsize_sm = 6
 blogiconsize_md = 6
 blogiconsize_lg = 4
@@ -9,6 +9,7 @@ html_filename = blog-merzouga.html
 blog_title = Return of the Moors: Merzouga
 blog_img = merzouga
 blog_type = prose
+blog_tags = travel
 
 /////////////////////////////////////
 blog_content : 

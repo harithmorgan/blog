@@ -9,6 +9,7 @@ html_filename = blog-fez2.html
 blog_title = Return of the Moors: Fez II
 blog_img = fez2
 blog_type = prose
+blog_tags = travel
 
 /////////////////////////////////////
 blog_content : 

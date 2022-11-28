@@ -9,6 +9,7 @@ html_filename = worldcup.html
 blog_title = World Cup 2022
 blog_img = worldcuptrophy
 blog_type = prose
+blog_tags = insights
 
 /////////////////////////////////////
 blog_content : 

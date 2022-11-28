@@ -9,6 +9,7 @@ html_filename = apoemilike10.html
 blog_title = A Poem I Like #10
 blog_img = oadnbta_poem
 blog_type = poem
+blog_tags = poetry
 
 /////////////////////////////////////
 blog_content : 

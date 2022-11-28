@@ -1,4 +1,4 @@
-overwrite_permission = no
+overwrite_permission = yes
 blogiconsize_sm = 6
 blogiconsize_md = 6
 blogiconsize_lg = 4
@@ -9,8 +9,9 @@ html_filename = blog-apoemilike4.html
 blog_title = A Poem I Like #4
 blog_img = brown_girl_dreaming
 blog_type = prose
+blog_tags = poetry
 
-blog_content = [
+blog_content = \[
 Changes <small>by Jacqueline Woodson</small>
 
 “...
@@ -32,6 +33,7 @@ will change some
 
 and so will each of us.
 …”
+\~\~\~\~\~\~
 
 Life is constantly evolving, and change is an inevitable part of being alive. So it’s a curious thing that we (including myself) struggle with transitions. We hold onto the present moment. We hold onto things as they are. And we support one another in that clinginess. I can remember times in my life(end of middle school, end of high school, end of college, end of grad school, end of track season, family get togethers) where we’d sit and reminisce about shared joyous experiences and promise one another an encore. It’s a mixture of self-deceit, fear, optimism, and gratitude.  
 

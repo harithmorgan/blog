@@ -6,9 +6,10 @@ blogiconsize_lg = 4
 /////////////////////////////////////
 blog_date = November 2, 2022
 html_filename = blog-untitledpoem1.html
-blog_title = Untitled I
+blog_title = Poem: The Stream Given Time
 blog_img = default
 blog_type = poem
+blog_tags = poetry
 
 /////////////////////////////////////
 blog_content : 

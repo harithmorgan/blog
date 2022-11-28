@@ -9,6 +9,7 @@ html_filename = blog-madrid_casablanca1.html
 blog_title = Return of the Moors: Marrakech -> Madrid ->Casablanca
 blog_img = madrid_casablanca1
 blog_type = prose
+blog_tags = travel
 
 /////////////////////////////////////
 blog_content : 

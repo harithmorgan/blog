@@ -9,6 +9,7 @@ html_filename = blog-midnight_library_review.html
 blog_title = Thoughts on "The Midnight Library"
 blog_img = midnightlibrary
 blog_type = prose
+blog_tags = books
 
 /////////////////////////////////////
 blog_content : 

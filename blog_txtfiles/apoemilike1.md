@@ -20,7 +20,7 @@ fiercely folded calmly in a lap, on a desk. around a book, ready to
 change the world..." -Jacqueline Woodson(excerpt from second daughter's
 second day on earth)
 
-\~\~\~\~\~\~\~\~\~\~\~\~\~
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
 
 I enjoy the intimacy of first name basis with revolutionaries. Malcolm,
 Martin, James, Rosa, Ruby. Each of these is a nondescript name, and

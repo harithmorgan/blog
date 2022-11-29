@@ -32,7 +32,7 @@ losing the battle against sleep,
 the crickets keep going
 as though they know their song
 is our lullaby.
-\~\~\~\~\~
+~ ~ ~ ~ ~ 
 
 I’m drawn to this poem for the way it brings life to a thing already so alive. Woodson injects a story into an all too common experience. So common in fact that it fades to the background of suburban life. Then, she waits until the very last line of the poem to introduce any human characters. For me, that is a reminder of how much beauty can spring forth when we return the spotlight to that which is beyond ourselves. We can all be  extras in the movie of life, we just have to sit still and observe the world as it happens.
 

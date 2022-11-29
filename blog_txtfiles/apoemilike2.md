@@ -31,7 +31,7 @@ Everyone else has gone away.
 And now coming back home isn't really coming back home at all. "
 -Jacqueline Woodson
 
-\~\~\~\~ 
+~ ~ ~ ~  
 Throughout the book Jacqueline Woodson seamlessly weaves the
 words of the characters into the poem. In this poem the words from her
 mother add layers of interpretation that complicate the emotions of the

@@ -63,8 +63,8 @@
          </li>
         </ul>
        </div>
-       <!-- <div class="site-logo pos-absolute">
-              <a href="index.html" class="unslate_co--site-logo">Unfold<span>.</span></a>
+       <!-- <div class="site-logo pos-absolute">
+              <a href="index.html" class="unslate_co--site-logo">Unfold<span>.</span></a>
             </div> -->
        <div class="site-logo pos-absolute">
         <a class="unslate_co--site-logo" href="index.html">
@@ -141,55 +141,85 @@
        </div>
        <!-- </div> -->
        <!-- ////previous and next posts ///// -->
-       <!-- <div class="post-single-navigation d-flex align-items-stretch"> -->
-       <div class="col-md-7 post-single-navigation d-flex align-items-stretch">
-        <a class="mr-auto w-50 pr-4" href="previous_blog_link">
-         <span class="d-block">
-          Previous Post
-         </span>
-         previous_blog_name
-        </a>
-        <a class="ml-auto w-50 text-right pl-4" href="next_blog_link">
+       <prev_posts class="col-md-7 post-single-navigation d-flex align-items-stretch" style="visibility: visible;">
+        <a class="mr-auto w-50 pr-4" href="blog-madrid_casablanca1.html">
          <span class="d-block">
           Next Post
          </span>
-         next_blog_name
+         Return of the Moors: Marrakech -&gt; Madrid -&gt;Casablanca
         </a>
-       </div>
+        <a class="ml-auto w-50 text-right pl-4" href="blog-merzouga.html">
+         <span class="d-block">
+          Previous Post
+         </span>
+         Return of the Moors: Merzouga
+        </a>
+       </prev_posts>
       </div>
      </div>
     </div>
     <!-- ////comments section ///// -->
     <!-- ////comments forms ///// -->
+    <script>
+     // alert("script is loading")
+ function generateID() {
+  var x = 2147483648;
+  return Math.floor(Math.random() * x).toString(36) +
+         Math.abs(Math.floor(Math.random() * x) ^ ((new Date()).getTime() / 1000)).toString(36);
+}
+
+
+function createComment() {
+  // alert("hello")
+  // console.log("hellooooooo")
+
+  event.preventDefault(event)
+fetch('https://dkp648uug0.execute-api.us-east-1.amazonaws.com/comments', {
+    method: 'PUT',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "id": generateID(),
+        "name": event.target.elements.name.value,
+        "email": event.target.elements.email.value,
+        "message": event.target.elements.message.value,
+        "blogName": blog-untitledpoem1.html
+    })
+})
+.then(response => response.json())
+.then(response => console.log(JSON.stringify(response)))
+return false
+}
+    </script>
     <div class="row justify-content-center">
      <div class="comment-form-wrap pt-5">
       <h3 class="mb-5">
        Leave a comment
       </h3>
-      <form action="#" class="">
+      <!-- <form onsubmit="console.log('loginonsubmit'); alert('inonsubmit'); createComment(event); console.log('after'); return false;"> -->
+      <form id="commentsform">
        <div class="form-group">
         <label for="name">
          Name *
         </label>
-        <input class="form-control" id="name" type="text"/>
+        <input class="form-control" id="name" name="name" type="text"/>
        </div>
        <div class="form-group">
         <label for="email">
          Email *
         </label>
-        <input class="form-control" id="email" type="email"/>
-       </div>
-       <div class="form-group">
-        <label for="website">
-         Website
-        </label>
-        <input class="form-control" id="website" type="url"/>
+        <input class="form-control" id="email" name="email" type="email"/>
        </div>
        <div class="form-group">
         <label for="message">
          Message
         </label>
-        <textarea class="form-control" cols="30" id="message" name="message" rows="5"></textarea>
+        <textarea class="form-control" cols="30" id="message" name="message" rows="3"></textarea>
+       </div>
+       <div class="form-group" style="display: none;">
+        <input class="form-control" name="my_file_name" value="blog-untitledpoem1.html"/>
        </div>
        <div class="form-group">
         <input class="btn btn-primary btn-md" type="submit" value="Post Comment"/>
@@ -211,6 +241,22 @@
        </span>
       </div>
       <related_posts class="row gutter-v4 align-items-stretch">
+       <div class="item poetry col-sm-3 col-md-3 col-lg-2 blog-post-entry">
+        <a class="grid-item blog-item w-100 h-100" href="apoemilike11.html">
+         <div class="overlay">
+          <div class="portfolio-item-content">
+           <h3>
+            A Poem I Like #11
+           </h3>
+           <p class="post-meta">
+            November 29, 2022
+           </p>
+          </div>
+         </div>
+         <img alt="Image" class="lazyload" src="images/default_thumbnail.jpg"/>
+        </a>
+       </div>
+       <!-- ///////// -->
        <div class="item poetry col-sm-3 col-md-3 col-lg-2 blog-post-entry">
         <a class="grid-item blog-item w-100 h-100" href="apoemilike10.html">
          <div class="overlay">
@@ -323,7 +369,7 @@
         </a>
        </div>
        <!-- ///////// -->
-       <div class="item poetry insights col-sm-3 col-md-3 col-lg-2 blog-post-entry">
+       <div class="item poetry col-sm-3 col-md-3 col-lg-2 blog-post-entry">
         <a class="grid-item blog-item w-100 h-100" href="blog-oadnbta.html">
          <div class="overlay">
           <div class="portfolio-item-content">

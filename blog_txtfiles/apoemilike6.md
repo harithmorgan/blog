@@ -24,7 +24,7 @@ air and me wondering. How do I spell introduce? Trying again and again
 until there is nothing but pink bits of eraser and a hole now where a
 story should be.
 
-\~\~\~
+~ ~ ~ 
 
 This poem is profound for me because it speaks a truth that is both hers
 and my own. I would hard pressed if asked to explain what distinguishes

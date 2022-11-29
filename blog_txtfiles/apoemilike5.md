@@ -31,7 +31,7 @@ finally one day into letters.
 And even though she's smarter than anything, this is something my sister
 can't even begin to understand. "
 
-\~\~\~\~\~
+~ ~ ~ ~ ~ 
 Here Woodson writes about an experience all her one--one she knows that
 will resonate with as souls as it shall also seem opaque to. She details
 her experience in vivid imagery while almost celebrating the fact that

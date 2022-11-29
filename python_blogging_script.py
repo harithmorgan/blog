@@ -46,6 +46,33 @@ def generate_html_file(var_dict, template_file):
         outf.write(page_code)
         outf.close()
 
+def add_prev_next_posts(var_dict, previous_var_dict, next_var_dict):
+    # load current blog page
+    with open(var_dict['html_filename'], 'rb') as html:
+        page_code = bs4.BeautifulSoup(html,"html.parser")
+        html.close()
+    
+    # print(page_code.prev_next_posts["style"]["visibility"])
+    # pass
+    page_code.prev_next_posts["style"] ="visibility: visible;"
+    page_code = page_code.prettify()
+
+    #add info for previous post
+    page_code = page_code.replace("previous_","")
+    for place_holder in previous_var_dict.keys():
+        page_code = page_code.replace(place_holder,previous_var_dict[place_holder])
+    
+    #add infor for next post
+    page_code = page_code.replace("next_","")
+    for place_holder in next_var_dict.keys():
+        page_code = page_code.replace(place_holder,next_var_dict[place_holder])
+
+
+    #save updated blog file
+    with open(var_dict['html_filename'], "w", encoding = 'utf-8') as outf:
+        outf.write(page_code)
+        outf.close()
+
 def add_related_posts(tags_dict, html_file):
     ##create related posts section:
 
@@ -69,8 +96,6 @@ def add_related_posts(tags_dict, html_file):
                 related_post_tile = related_post_tile.replace("col-sm-6","col-sm-3")
 
             related_posts_content += related_post_tile    
-     
-
 
     with open(file_to_edit, 'rb') as html:
         page_code = bs4.BeautifulSoup(html,"html.parser")
@@ -156,31 +181,43 @@ for files in list_txtfiles:
     dates_written[files] = date_written
 sorted_txtfiles = sorted(list_txtfiles, key = lambda x: dates_written[x])
 
-
+#clear index page of blog tiles
 refresh_index_page()
 
+#create blog pages and update index page
+for ii in range(len(sorted_txtfiles)):
 
+    ##define variable dictionaries
+    if (ii == 0): previous_var_dict = {"blog_title": "Main Page", "html_filename": "index.html"}
+    else: previous_var_dict = grab_txtfile_variables(sorted_txtfiles[ii-1])
+    
+    if (ii == len(sorted_txtfiles)-1): next_var_dict = {"blog_title": "Coming Soon", "html_filename": "index.html"}
+    else: next_var_dict = grab_txtfile_variables(sorted_txtfiles[ii+1])
+    
+    var_dict = grab_txtfile_variables(sorted_txtfiles[ii])
+    files = sorted_txtfiles[ii]
 
-for files in sorted_txtfiles: 
-
-    var_dict = grab_txtfile_variables(files)
-
-    #generate blog page 
+    ##generate blog page 
     if (not os.path.exists(var_dict['html_filename'])):
-        generate_html_file(var_dict,'prosetemplatetest.html')    
+        generate_html_file(var_dict,'prosetemplatetest.html')
+        add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)    
         print('new file generated')
 
     elif (var_dict['overwrite_permission']=='yes'):
         generate_html_file(var_dict,'prosetemplatetest.html')
+        add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)
         print('previous file overwritten: ' + str(files))
             
     else:   
         print('file already exists, will not overwrite: ' + str(files))
 
-    #update home page to link to blog posts
+    
+
+    ##update home page to link to blog posts
     update_index_page(var_dict)
     print('\n')
 
+#add related posts to each blog page(based on common tags)
 tags_dict = {}
 for files in list(reversed(sorted_txtfiles)): 
     var_dict = grab_txtfile_variables(files)

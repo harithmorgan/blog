@@ -25,6 +25,14 @@ jQuery(function($) {
 
 });
 
+// working on comment function
+function generateID() {
+	var x = 2147483648;
+	return Math.floor(Math.random() * x).toString(36) +
+		   Math.abs(Math.floor(Math.random() * x) ^ ((new Date()).getTime() / 1000)).toString(36);
+}
+// 
+
 var siteIstotope = function() {
 	var $container = $('#posts').isotope({
     itemSelector : '.item',
@@ -39,7 +47,33 @@ var siteIstotope = function() {
   
   $container.isotope({ filter: '*' });
 
-  $('#filters').on( 'click', 'a', function(e) {
+
+// working on comments form
+$('#commentsform').on('submit', function(event) {
+	console.log(";sklfjdalskdj")
+
+	fetch('https://dkp648uug0.execute-api.us-east-1.amazonaws.com/comments', {
+    method: 'PUT',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+        "id": generateID(),
+        "name": event.target.elements.name.value,
+        "email": event.target.elements.email.value,
+        "message": event.target.elements.message.value,
+        "blogName": event.target.elements.my_file_name.value,sdf
+    })
+})
+.then(response => response.json())
+.then(response => console.log(JSON.stringify(response)))
+    return false;
+});
+// 
+
+
+$('#filters').on( 'click', 'a', function(e) {
   	e.preventDefault();
     var filterValue = $(this).attr('data-filter');
     $container.isotope({ filter: filterValue });

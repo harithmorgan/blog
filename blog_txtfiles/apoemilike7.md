@@ -33,7 +33,7 @@ me these words have been said before
 
 "when will you start taking care of yourself?" i answer by asking you
 the same 
-\~\~\~\~\~\~\~
+~ ~ ~ ~ ~ ~ ~ 
 
 Afeefah introduces the idea of ritual just as her words pull me into a
 single moment---a moment that holds all the weight of lineage itself.

@@ -199,12 +199,12 @@ for ii in range(len(sorted_txtfiles)):
 
     ##generate blog page 
     if (not os.path.exists(var_dict['html_filename'])):
-        generate_html_file(var_dict,'prosetemplatetest.html')
+        generate_html_file(var_dict,'prosetemplate.html')
         add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)    
         print('new file generated')
 
     elif (var_dict['overwrite_permission']=='yes'):
-        generate_html_file(var_dict,'prosetemplatetest.html')
+        generate_html_file(var_dict,'prosetemplate.html')
         add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)
         print('previous file overwritten: ' + str(files))
             

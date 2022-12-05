@@ -170,75 +170,6 @@
       </div>
      </div>
     </div>
-    <!-- ////comments section ///// -->
-    <!-- ////comments forms ///// -->
-    <script>
-     // alert("script is loading")
- function generateID() {
-  var x = 2147483648;
-  return Math.floor(Math.random() * x).toString(36) +
-         Math.abs(Math.floor(Math.random() * x) ^ ((new Date()).getTime() / 1000)).toString(36);
-}
-
-
-function createComment() {
-  // alert("hello")
-  // console.log("hellooooooo")
-
-  event.preventDefault(event)
-fetch('https://dkp648uug0.execute-api.us-east-1.amazonaws.com/comments', {
-    method: 'PUT',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ 
-        "id": generateID(),
-        "name": event.target.elements.name.value,
-        "email": event.target.elements.email.value,
-        "message": event.target.elements.message.value,
-        "blogName": why_fourtynine13.html
-    })
-})
-.then(response => response.json())
-.then(response => console.log(JSON.stringify(response)))
-return false
-}
-    </script>
-    <div class="row justify-content-center">
-     <div class="comment-form-wrap pt-5">
-      <h3 class="mb-5">
-       Leave a comment
-      </h3>
-      <!-- <form onsubmit="console.log('loginonsubmit'); alert('inonsubmit'); createComment(event); console.log('after'); return false;"> -->
-      <form id="commentsform">
-       <div class="form-group">
-        <label for="name">
-         Name *
-        </label>
-        <input class="form-control" id="name" name="name" type="text"/>
-       </div>
-       <div class="form-group">
-        <label for="email">
-         Email *
-        </label>
-        <input class="form-control" id="email" name="email" type="email"/>
-       </div>
-       <div class="form-group">
-        <label for="message">
-         Message
-        </label>
-        <textarea class="form-control" cols="30" id="message" name="message" rows="3"></textarea>
-       </div>
-       <div class="form-group" style="display: none;">
-        <input class="form-control" name="my_file_name" value="why_fourtynine13.html"/>
-       </div>
-       <div class="form-group">
-        <input class="btn btn-primary btn-md" type="submit" value="Post Comment"/>
-       </div>
-      </form>
-     </div>
-    </div>
     <!-- ////related posts section ///// -->
     <div class="unslate_co--section" id="related-posts-section">
      <div class="container">

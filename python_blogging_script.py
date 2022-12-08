@@ -15,13 +15,13 @@ def grab_txtfile_variables(txtfile):
     while len(info) > 0:
 
         line = info.pop(0)
-        line_contents = line.strip().split('=')
+        line_contents = line.strip().split(' =')
        
         if len(line_contents) > 0:
             if 'blog_content' in line_contents[0]:
                 is_blog_content = True
             
-            if (is_blog_content) and (']' in line_contents[0]):
+            if (is_blog_content) and (']end' in line_contents[0]):
                 is_blog_content = False
 
         if ('blog_content' not in line_contents[0]):

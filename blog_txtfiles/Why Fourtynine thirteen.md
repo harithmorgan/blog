@@ -7,7 +7,7 @@ blogiconsize_lg = 4
 blog_date = November 22, 2022
 html_filename = why_fourtynine13.html
 blog_title = Why "FourtyNine13" ?
-blog_img = why4913
+blog_img = whyfourtynine_thirteen
 blog_type = prose
 blog_tags = insights
 
@@ -36,6 +36,6 @@ To put this succinclty, naming this blog after verse <a href="https://quran.com/
 
 So reach out. I'd love to hear your thoughts...any of them. :)
 
-]
+]end
 
 - Yea it’s the verse about “…that you may know one another…” the blog is one way ppl get to know me and hopefully it’s a conversation starter so I can get to know them Ty

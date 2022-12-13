@@ -9,7 +9,7 @@ html_filename = blog-oadnbta.html
 blog_title = Review on "Our Ancestors Did Not Breathe This Air" 
 blog_img = oadnbta 
 blog_type = prose
-blog_tags = poetry
+blog_tags = poetry books
 
 blog_content = \[ 
 OADNBTA 

@@ -23,4 +23,4 @@ In our group there was a set of friends from San Francisco who traveled the worl
 
 Time: 
 The people and the places fit into the moments. Time is the canvas that holds these colorful expriences, and as with any painting the color and texture of the canvas offers its own contribution to the artwork. The time that I am in my life, I am searching for assured self-worth. Traveling has been a large tool in that pursuit. I am trying to define my self, my interests, and my values. Placing myself in new contexts and encountering individuals with contrasting world views is all part of this process of discover and inventions.
-]
+]end

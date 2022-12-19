@@ -15,6 +15,7 @@ blog_content :
 
 This here is a photo drop from my latest trip, a recount of the lead up to that trip, and an appreciation post for the friends that made the trip all that it was. 
 
+(Photos by Taj Ingram, Click to enlarge)
  <!-- Photos gallery -->
       <div id="gallery">
         <a href="images/morocco-spain-pics1.jpg"   data-fancybox="gallery" data-caption="Cordoba, Spain">

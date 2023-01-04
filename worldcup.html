@@ -15,12 +15,12 @@
   <link href="css/vendor/aos.css" rel="stylesheet"/>
   <link href="css/vendor/bootstrap.min.css" rel="stylesheet"/>
   <link href="css/vendor/jquery.fancybox.min.css" rel="stylesheet"/>
-  <link href="css/style_photogallery.css" rel="stylesheet"/>
-  <!--photo gallery-->
   <!-- Theme Style -->
   <link href="css/style.css" rel="stylesheet"/>
  </head>
  <body data-offset="200" data-spy="scroll" data-target=".site-nav-target">
+  <!-- <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0" nonce="sJVTKJJX"></script> -->
   <nav class="unslate_co--site-mobile-menu">
    <div class="close-wrap d-flex">
     <a class="d-flex ml-auto js-menu-toggle" href="#">
@@ -59,8 +59,8 @@
          </li>
          <!-- <li><a href="#about-section" class="nav-link">About</a></li> -->
          <li>
-          <a class="nav-link" href="index.html#subscribe-section">
-           Subscribe
+          <a class="nav-link" href="index.html#contact-section">
+           Contact
           </a>
          </li>
         </ul>
@@ -162,6 +162,29 @@
       </div>
      </div>
     </div>
+    <!-- ////comments section ///// -->
+    <div class="container">
+     <div class="row justify-content-center">
+      <div class="col-md-7">
+       <div id="disqus_thread">
+       </div>
+       <script>
+        var disqus_config = function () {
+    this.page.url = "https://fourtynine13.com/worldcup.html";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = "worldcup.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://fourtynine13.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+       </script>
+       <!-- <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+      </div>
+     </div>
+    </div>
     <!-- ////related posts section ///// -->
     <div class="unslate_co--section" id="related-posts-section">
      <div class="container">
@@ -254,7 +277,7 @@
       <!-- <div class="footer-site-logo"><a href="#">Unfold<span>.</span></a></div> -->
       <ul class="footer-site-social">
        <li>
-        <a href="#">
+        <a class="fb-xfbml-parse-ignore" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffourtynine13.com%2Fworldcup.html&amp;src=sdkpreparse" target="_blank">
          Facebook
         </a>
        </li>

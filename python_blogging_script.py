@@ -172,6 +172,7 @@ def update_index_page(var_dict):
 
 currentdir = os.getcwd()
 list_txtfiles = os.listdir(currentdir + "\\blog_txtfiles")
+# print(list_txtfiles)
 
 #sort list of files by date written
 dates_written = {}
@@ -180,6 +181,7 @@ for files in list_txtfiles:
     date_written = datetime.strptime(var_dict['blog_date'], '%B %d, %Y')
     dates_written[files] = date_written
 sorted_txtfiles = sorted(list_txtfiles, key = lambda x: dates_written[x])
+print(sorted_txtfiles)
 
 #clear index page of blog tiles
 refresh_index_page()
@@ -199,12 +201,12 @@ for ii in range(len(sorted_txtfiles)):
 
     ##generate blog page 
     if (not os.path.exists(var_dict['html_filename'])):
-        generate_html_file(var_dict,'prosetemplate.html')
+        generate_html_file(var_dict,'prosetemplate_withcommentfunction.html')
         add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)    
         print('new file generated')
 
     elif (var_dict['overwrite_permission']=='yes'):
-        generate_html_file(var_dict,'prosetemplate.html')
+        generate_html_file(var_dict,'prosetemplate_withcommentfunction.html')
         add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)
         print('previous file overwritten: ' + str(files))
             

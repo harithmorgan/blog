@@ -181,7 +181,7 @@ for files in list_txtfiles:
     date_written = datetime.strptime(var_dict['blog_date'], '%B %d, %Y')
     dates_written[files] = date_written
 sorted_txtfiles = sorted(list_txtfiles, key = lambda x: dates_written[x])
-print(sorted_txtfiles)
+# print(sorted_txtfiles)
 
 #clear index page of blog tiles
 refresh_index_page()
@@ -199,6 +199,7 @@ for ii in range(len(sorted_txtfiles)):
     var_dict = grab_txtfile_variables(sorted_txtfiles[ii])
     files = sorted_txtfiles[ii]
 
+    print(var_dict['html_filename'])
     ##generate blog page 
     if (not os.path.exists(var_dict['html_filename'])):
         generate_html_file(var_dict,'prosetemplate_withcommentfunction.html')

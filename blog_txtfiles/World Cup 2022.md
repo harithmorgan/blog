@@ -5,7 +5,7 @@ blogiconsize_lg = 4
 
 /////////////////////////////////////
 blog_date = November 12, 2022
-html_filename = worldcup.html
+html_filename = blog-worldcup.html
 blog_title = World Cup 2022
 blog_img = worldcuptrophy
 blog_type = prose

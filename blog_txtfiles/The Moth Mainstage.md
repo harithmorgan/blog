@@ -5,7 +5,7 @@ blogiconsize_lg = 4
 
 /////////////////////////////////////
 blog_date = December 18, 2022
-html_filename = the_moth_mainstage.html
+html_filename = blog-the_moth_mainstage.html
 blog_title = The Moth Mainstage in NYC
 blog_img = the_moth_mainstage
 blog_tags = poetry 

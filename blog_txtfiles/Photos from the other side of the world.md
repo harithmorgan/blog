@@ -5,7 +5,7 @@ blogiconsize_lg = 4
 
 /////////////////////////////////////
 blog_date = December 7, 2022
-html_filename = morocco_spain_photodrop.html
+html_filename = blog-morocco_spain_photodrop.html
 blog_title = Photos From The Other Side of The World
 blog_img = morocco-spain-pics
 blog_tags = travel

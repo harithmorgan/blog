@@ -5,7 +5,7 @@ blogiconsize_lg = 4
 
 /////////////////////////////////////
 blog_date = November 10, 2022
-html_filename = apoemilike8.html
+html_filename = blog-apoemilike8.html
 blog_title = A Poem I Like #8
 blog_img = apoemilike8
 blog_type = poem

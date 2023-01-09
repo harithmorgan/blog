@@ -5,7 +5,7 @@ blogiconsize_lg = 4
 
 /////////////////////////////////////
 blog_date = December 4, 2022
-html_filename = poem_healing-is.html
+html_filename = poem-healing_is.html
 blog_title = "Healing is..."
 blog_img = default
 blog_tags = poetry 

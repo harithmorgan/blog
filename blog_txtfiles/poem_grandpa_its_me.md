@@ -8,7 +8,7 @@ blog_date = February 12, 2023
 html_filename = poem-grandpa_its_me.html
 blog_title = Poem: Grandpa...It's Me
 blog_img = default
-blog_tags = 
+blog_tags = poetry
 
 /////////////////////////////////////
 blog_content : 

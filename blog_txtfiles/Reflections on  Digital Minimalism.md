@@ -14,7 +14,7 @@ blog_tags = books insights
 blog_content : 
 (15 min read)
 
-Digital Minimalism by Cal Newport is a book written both about me and for me. Newport's writing is clear and direct, and his insights are precisely genius. The book is about me because I have inadvertently been practicing many of Newport's recommendations throughout my adult life. The book is for me because Newport's analyses put words to what I only had sentiments and inclinations to describe. By his metric, I would describe the younger me as a novice digital minimalist. With his insights, I can actively embrace digital minimalism, and hopefully taste even more of the sweetness that a balanced life has to offer. 
+<a href="https://www.amazon.com/Digital-Minimalism-Choosing-Focused-Noisy/dp/0525536515">Digital Minimalism by Cal Newport</a> is a book written both about me and for me. Newport's writing is clear and direct, and his insights are precisely genius. The book is about me because I have inadvertently been practicing many of Newport's recommendations throughout my adult life. The book is for me because Newport's analyses put words to what I only had sentiments and inclinations to describe. By his metric, I would describe the younger me as a novice digital minimalist. With his insights, I can actively embrace digital minimalism, and hopefully taste even more of the sweetness that a balanced life has to offer. 
 
 In this post I'll share an overview on meaningful lessons I found throughout the book(not exactly a summary), I'll dive deeper into how I unconsciously became a digital minimalist, and finally, I'll talk about my growth and my journey forward. 
 

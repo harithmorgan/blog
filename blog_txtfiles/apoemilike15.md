@@ -7,7 +7,7 @@ blogiconsize_lg = 4
 blog_date =  March 21, 2023
 html_filename = blog-apoemilike15.html
 blog_title = A Poem I Like #15
-blog_img = default
+blog_img = wholehearted
 blog_tags = poetry
 
 /////////////////////////////////////

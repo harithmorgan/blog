@@ -2142,3 +2142,47 @@ span.error {
   font-weight: bold; 
   color: firebrick;
 }
+
+
+.btn-subscribe {
+  display: inline-block;
+  padding: 14px 40px;
+  font-family: inherit;          /* use the theme's font */
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: rgb(169, 0, 0);   /* same red as your "subscribe..." text */
+  border: 2px solid rgb(169, 0, 0);
+  border-radius: 0;              /* square corners suit the brick/monochrome look */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-subscribe:hover,
+.btn-subscribe:focus {
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.btn-subscribe:focus-visible {
+  outline: 2px solid rgb(169, 0, 0);
+  outline-offset: 3px;           /* keyboard users can still see focus */
+}
+
+.btn-subscribe--hero {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: rgb(169, 0, 0);
+  border-color: rgb(169, 0, 0);
+}
+
+.btn-subscribe--hero:hover,
+.btn-subscribe--hero:focus {
+  background-color: rgb(169, 0, 0);
+  color: #fff;
+  border-color: rgb(169, 0, 0);
+}

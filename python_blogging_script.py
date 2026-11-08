@@ -1,232 +1,338 @@
-import bs4
-import os 
+"""
+Blog site generator.
+
+Folders:
+    blog_txtfiles/            -> current posts   (shown in "Recent & Featured Posts")
+    archived_blog_txtfiles/   -> archived posts  (shown in "Archived Posts")
+
+To feature an archived post in the Recent & Featured section, add this line
+to the top of its text file (next to overwrite_permission):
+    featured = yes
+
+Prev/next links stay inside each index section, in date order:
+    current posts + featured archived posts link to each other,
+    non-featured archived posts link only to each other.
+
+Related posts are shared across both folders.
+"""
+
+import os
 from datetime import datetime
-import numpy
+
+import bs4
+
+#///////////////////////    SETTINGS   ///////////////////////////////
+
+CURRENT_FOLDER = "blog_txtfiles"
+ARCHIVE_FOLDER = "archived_blog_txtfiles"
+
+PAGE_TEMPLATE = "prosetemplate_withcommentfunction.html"
+TILE_TEMPLATE = "blogpost_tile_template.html"
+INDEX_FILE = "index.html"
+
+RECENT_SECTION = "blog_post_tiles"        # tag in index.html
+ARCHIVE_SECTION = "archived_post_tiles"   # tag in index.html
+
+TILE_SEPARATOR = "<!-- ///////// -->"
+DATE_FORMAT = "%B %d, %Y"
+
+# Should a featured archived post also stay listed in the Archived section?
+SHOW_FEATURED_IN_ARCHIVE_TOO = True
+
+# Max number of related posts per page (None = no limit)
+MAX_RELATED_POSTS = None
 
 
-#///////////////////////    FUNCTIONS   ///////////////////////////
-def grab_txtfile_variables(txtfile):
-    var_dict = {} #create dictionary for variables
-    var_dict['blog_content'] = str()
-    filename = "blog_txtfiles\\" + txtfile
-    info = open(filename, encoding='utf-8').readlines()
-    
+#///////////////////////    HELPERS   ////////////////////////////////
+
+def replace_placeholders(text, var_dict, prefix=""):
+    """Replace prefix+key with its value, longest keys first so that a
+    short key (e.g. blog_img) never clobbers a longer one that starts with
+    it. blog_content goes last so other keys are never substituted inside
+    the post body."""
+    keys = sorted(var_dict.keys(), key=len, reverse=True)
+    if "blog_content" in keys:
+        keys.remove("blog_content")
+        keys.append("blog_content")
+    for key in keys:
+        text = text.replace(prefix + key, var_dict[key])
+    return text
+
+
+def fill_neighbor_placeholders(text, var_dict, word):
+    """Template names neighbour placeholders by inserting the word after the
+    first underscore: html_filename -> html_previous_filename,
+    blog_title -> blog_next_title."""
+    keys = sorted((k for k in var_dict if "_" in k and k != "blog_content"),
+                  key=len, reverse=True)
+    for key in keys:
+        head, tail = key.split("_", 1)
+        text = text.replace(f"{head}_{word}_{tail}", var_dict[key])
+    return text
+
+
+def load_template(path):
+    with open(path, "rb") as f:
+        return bs4.BeautifulSoup(f, "html.parser").prettify()
+
+
+def load_soup(path):
+    with open(path, "rb") as f:
+        return bs4.BeautifulSoup(f, "html.parser")
+
+
+def save_text(path, text):
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
+def is_yes(value):
+    return str(value).strip().lower() == "yes"
+
+
+#///////////////////////    READING POSTS   //////////////////////////
+
+def grab_txtfile_variables(path):
+    """Read a post text file. `path` includes its folder."""
+    var_dict = {"blog_content": ""}
+    with open(path, encoding="utf-8") as f:
+        lines = f.readlines()
+
     is_blog_content = False
-    while len(info) > 0:
+    for line in lines:
+        stripped = line.strip()
 
-        line = info.pop(0)
-        line_contents = line.strip().split(' =')
-       
-        if len(line_contents) > 0:
-            if 'blog_content' in line_contents[0]:
-                is_blog_content = True
-            
-            if (is_blog_content) and (']end' in line_contents[0]):
-                is_blog_content = False
+        if stripped.startswith("blog_content"):
+            is_blog_content = True
+            continue
+        if is_blog_content and "]end" in stripped:
+            is_blog_content = False
+            continue
 
-        if ('blog_content' not in line_contents[0]):
-            if is_blog_content:
-                var_dict['blog_content'] += line_contents[0] + '<br>'
-            elif len(line_contents) > 1:
-                var_dict[line_contents[0].strip()] = line_contents[1].strip() 
+        if is_blog_content:
+            var_dict["blog_content"] += stripped + "<br>"   # keep the whole line
+        else:
+            parts = stripped.split(" =", 1)                 # split once only
+            if len(parts) == 2:
+                var_dict[parts[0].strip()] = parts[1].strip()
     return var_dict
 
-def generate_html_file(var_dict, template_file):
-    # load the template file
-    with open(template_file, 'rb') as html:
-        page_code = str(bs4.BeautifulSoup(html,"html.parser").prettify())
-        html.close()
 
-    # replace appropriate sections from template
-    for place_holder in var_dict.keys():
-        page_code = page_code.replace(place_holder,var_dict[place_holder])
+def collect_posts(folder):
+    """Return a list of post dicts for every text file in `folder`."""
+    posts = []
+    if not os.path.isdir(folder):
+        print(f"WARNING: folder not found, skipping: {folder}")
+        return posts
 
-    # create and save new file
-    with open(var_dict['html_filename'], "w", encoding = 'utf-8') as outf:
-        outf.write(page_code)
-        outf.close()
+    for name in sorted(os.listdir(folder)):
+        path = os.path.join(folder, name)
+        if name.startswith(".") or not os.path.isfile(path):
+            continue   # skips .DS_Store and subfolders
 
-def add_prev_next_posts(var_dict, previous_var_dict, next_var_dict):
-    # load current blog page
-    with open(var_dict['html_filename'], 'rb') as html:
-        page_code = bs4.BeautifulSoup(html,"html.parser")
-        html.close()
-    
-    # print(page_code.prev_next_posts["style"]["visibility"])
-    # pass
-    page_code.prev_next_posts["style"] ="visibility: visible;"
-    page_code = page_code.prettify()
+        var_dict = grab_txtfile_variables(path)
+        try:
+            date = datetime.strptime(var_dict["blog_date"], DATE_FORMAT)
+        except (KeyError, ValueError):
+            print(f"WARNING: missing or bad blog_date, skipping: {path}")
+            continue
 
-    #add info for previous post
-    page_code = page_code.replace("previous_","")
-    for place_holder in previous_var_dict.keys():
-        page_code = page_code.replace(place_holder,previous_var_dict[place_holder])
-    
-    #add infor for next post
-    page_code = page_code.replace("next_","")
-    for place_holder in next_var_dict.keys():
-        page_code = page_code.replace(place_holder,next_var_dict[place_holder])
+        posts.append({
+            "path": path,
+            "vars": var_dict,
+            "date": date,
+            "archived": folder == ARCHIVE_FOLDER,
+            "featured": is_yes(var_dict.get("featured", "no")),
+        })
+    return posts
 
 
-    #save updated blog file
-    with open(var_dict['html_filename'], "w", encoding = 'utf-8') as outf:
-        outf.write(page_code)
-        outf.close()
+#///////////////////////    BLOG PAGES   /////////////////////////////
 
-def add_related_posts(tags_dict, html_file):
-    ##create related posts section:
+def generate_html_file(var_dict, previous_var_dict, next_var_dict, template_file):
+    page_code = load_template(template_file)
 
-    var_dict = grab_txtfile_variables(html_file)
+    # fill the previous/next placeholders first (html_previous_filename,
+    # blog_next_title, ...), then this post's own values
+    page_code = fill_neighbor_placeholders(page_code, previous_var_dict, "previous")
+    page_code = fill_neighbor_placeholders(page_code, next_var_dict, "next")
+    page_code = replace_placeholders(page_code, var_dict)
+
+    # make the prev/next block visible
+    soup = bs4.BeautifulSoup(page_code, "html.parser")
+    if soup.prev_next_posts is not None:
+        soup.prev_next_posts["style"] = "visibility: visible;"
+
+    save_text(var_dict["html_filename"], soup.prettify())
+
+
+def build_chain(posts, chain_name, start_link, end_link):
+    """Generate pages for one folder's posts (oldest -> newest) and link
+    each to its neighbours within that same list only."""
+    print(f"\n========== {chain_name} ==========")
+    for i, post in enumerate(posts):
+        var_dict = post["vars"]
+        previous_var_dict = start_link if i == 0 else posts[i - 1]["vars"]
+        next_var_dict = end_link if i == len(posts) - 1 else posts[i + 1]["vars"]
+
+        html_file = var_dict["html_filename"]
+        print(html_file)
+
+        if not os.path.exists(html_file):
+            generate_html_file(var_dict, previous_var_dict, next_var_dict, PAGE_TEMPLATE)
+            print("  new file generated")
+        elif is_yes(var_dict.get("overwrite_permission", "no")):
+            generate_html_file(var_dict, previous_var_dict, next_var_dict, PAGE_TEMPLATE)
+            print(f"  previous file overwritten: {post['path']}")
+        else:
+            print(f"  file already exists, will not overwrite: {post['path']}")
+
+
+#///////////////////////    RELATED POSTS   //////////////////////////
+
+def build_tags_dict(posts_newest_first):
+    tags_dict = {}
+    for post in posts_newest_first:
+        for tag in post["vars"].get("blog_tags", "").split():
+            tags_dict.setdefault(tag, []).append(post)
+    return tags_dict
+
+
+def add_related_posts(post, tags_dict, tile_template):
+    var_dict = post["vars"]
     file_to_edit = var_dict["html_filename"]
-    # print(var_dict)
-    related_posts_content =""
-    for tag in var_dict["blog_tags"].split():
-        # print(tag)
-        for related_blog in tags_dict[tag]:
-    
-            with open("blogpost_tile_template.html", 'rb') as html:
-                related_post_tile = str(bs4.BeautifulSoup(html,"html.parser").prettify())
-                html.close()
+    if not os.path.exists(file_to_edit):
+        return
 
-            var_dict = grab_txtfile_variables(related_blog)
-            for place_holder in var_dict.keys():
-                related_post_tile = related_post_tile.replace(place_holder,var_dict[place_holder])
-                related_post_tile = related_post_tile.replace("col-lg-4","col-lg-2")
-                related_post_tile = related_post_tile.replace("col-md-6","col-md-3")
-                related_post_tile = related_post_tile.replace("col-sm-6","col-sm-3")
+    # unique related posts (one per html page), excluding this page,
+    # in newest-first order
+    related = []
+    seen_pages = {file_to_edit}
+    for tag in var_dict.get("blog_tags", "").split():
+        for other in tags_dict.get(tag, []):
+            page = other["vars"]["html_filename"]
+            if page not in seen_pages:
+                seen_pages.add(page)
+                related.append(other)
+    if MAX_RELATED_POSTS is not None:
+        related = related[:MAX_RELATED_POSTS]
 
-            related_posts_content += related_post_tile    
+    related_posts_content = ""
+    for other in related:
+        tile = replace_placeholders(tile_template, other["vars"])
+        tile = tile.replace("col-lg-4", "col-lg-2")
+        tile = tile.replace("col-md-6", "col-md-3")
+        tile = tile.replace("col-sm-6", "col-sm-3")
+        related_posts_content += tile
 
-    with open(file_to_edit, 'rb') as html:
-        page_code = bs4.BeautifulSoup(html,"html.parser")
-        html.close()
+    page_code = load_soup(file_to_edit)
+    if page_code.related_posts is None:
+        print(f"  no <related_posts> section in {file_to_edit}, skipped")
+        return
 
-    page_code.related_posts.contents = []
-    page_code.related_posts.extend(bs4.BeautifulSoup(related_posts_content,"html.parser"))
-   
-    # create and save new file
-    with open(file_to_edit, "w", encoding = 'utf-8') as outf:
-        outf.write(str(page_code.prettify()))
-        outf.close()
+    page_code.related_posts.clear()
+    page_code.related_posts.extend(bs4.BeautifulSoup(related_posts_content, "html.parser"))
+    save_text(file_to_edit, page_code.prettify())
 
-    # print('\n')
 
-def refresh_index_page():
-    # grab the code from current index file
-    with open('index.html', 'rb') as html:
-        index_page_code = bs4.BeautifulSoup(html,"html.parser")
-        html.close()
+#///////////////////////    INDEX PAGE   /////////////////////////////
 
-    index_page_code.blog_post_tiles.contents = []
+def make_tile(var_dict, tile_template):
+    tile = replace_placeholders(tile_template, var_dict)
+    if TILE_SEPARATOR not in tile:
+        tile += TILE_SEPARATOR
+    return tile
 
-    # create and save new file
-    with open("index.html", "w", encoding = 'utf-8') as outf:
-        outf.write(index_page_code.prettify())
-        outf.close()
 
-def update_index_page(var_dict):
-    # load the template for new blog post tile
-    with open('blogpost_tile_template.html', 'rb') as html:
-        new_post_code = bs4.BeautifulSoup(html,"html.parser").prettify()
-        html.close()
+def unique_pages(posts):
+    seen, result = set(), []
+    for p in posts:
+        page = p["vars"]["html_filename"]
+        if page not in seen:
+            seen.add(page)
+            result.append(p)
+    return result
 
-    # replace appropriate sections from template
-    for place_holder in var_dict.keys():
-        new_post_code = new_post_code.replace(place_holder,var_dict[place_holder])
 
-    # grab the code from current index file
-    with open('index.html', 'rb') as html:
-        index_page_code = bs4.BeautifulSoup(html,"html.parser")
-        html.close()
+def rebuild_index_page(recent_posts, archive_posts, tile_template):
+    """Clear both index sections and refill them from the post lists."""
+    index_page_code = load_soup(INDEX_FILE)
 
-    #focus on blog posts, parse out invdiviual tiles
-    current_posts = index_page_code.blog_post_tiles.prettify()
-    temp = current_posts.split('<!-- ///////// -->')
-    indv_tiles = [temp[i] + '<!-- ///////// -->' for i in range(len(temp)-1)] + [temp[-1]]
-    # indv_tiles = [temp[i] + '<!-- ///////// -->' for i in range(len(temp))]
+    for section_name, posts in [(RECENT_SECTION, recent_posts),
+                                (ARCHIVE_SECTION, archive_posts)]:
+        section = index_page_code.find(section_name)
+        if section is None:
+            print(f"WARNING: <{section_name}> not found in {INDEX_FILE}")
+            continue
 
-    #update blog tiles with overwrite permission
-    for i in range(len(indv_tiles)):
-        if (var_dict['html_filename'] in indv_tiles[i]) and (var_dict['overwrite_permission'] == 'yes'):
-            indv_tiles[i] = new_post_code 
-            print('tile updated')
+        tiles = "".join(make_tile(p["vars"], tile_template) for p in posts)
+        section.clear()
+        section.extend(bs4.BeautifulSoup(tiles, "html.parser"))
+        print(f"{len(posts)} tiles written to <{section_name}>")
 
-    #finalize arrangement of tiles(appended newest to top)
-    if (var_dict['html_filename']  not in current_posts):
-        updated_posts = new_post_code + current_posts[60:-20]
-        print("new blog tile added to index page")
+    save_text(INDEX_FILE, index_page_code.prettify())
+
+
+#///////////////////////    MAIN CODE   //////////////////////////////
+
+def main():
+    current_posts = sorted(collect_posts(CURRENT_FOLDER), key=lambda p: p["date"])
+    archived_posts = sorted(collect_posts(ARCHIVE_FOLDER), key=lambda p: p["date"])
+    all_posts = current_posts + archived_posts
+
+    # warn about two text files producing the same html page
+    seen = {}
+    for p in all_posts:
+        name = p["vars"].get("html_filename")
+        if name in seen:
+            print(f"WARNING: {p['path']} and {seen[name]} both write {name}")
+        seen[name] = p["path"]
+
+    print("Current posts: ", [p["path"] for p in current_posts])
+    print("Archived posts:", [p["path"] for p in archived_posts])
+
+    featured_archived = [p for p in archived_posts if p["featured"]]
+
+    # 1. blog pages + prev/next
+    #    Recent & Featured chain: current posts + featured archived posts, by date
+    #    Archive chain: the remaining (non-featured) archived posts, by date
+    recent_chain = unique_pages(
+        sorted(current_posts + featured_archived, key=lambda p: p["date"]))
+    recent_pages = {p["vars"]["html_filename"] for p in recent_chain}
+    archive_chain = [p for p in archived_posts
+                     if p["vars"]["html_filename"] not in recent_pages]
+
+    build_chain(recent_chain, "RECENT & FEATURED POSTS",
+                start_link={"blog_title": "Main Page", "html_filename": INDEX_FILE},
+                end_link={"blog_title": "Coming Soon", "html_filename": INDEX_FILE})
+    build_chain(archive_chain, "ARCHIVED POSTS",
+                start_link={"blog_title": "Main Page", "html_filename": INDEX_FILE},
+                end_link={"blog_title": "Main Page", "html_filename": INDEX_FILE})
+
+    tile_template = load_template(TILE_TEMPLATE)
+
+    # 2. index page: newest first in each section
+    recent_section = list(reversed(current_posts)) + list(reversed(featured_archived))
+
+    if SHOW_FEATURED_IN_ARCHIVE_TOO:
+        archive_section = list(reversed(archived_posts))
     else:
-        # print(indv_tiles[-2:-1])
-        updated_posts = ''.join(indv_tiles)[60:-20]
-        print("blog tile already exists")
-        
-    index_page_code.blog_post_tiles.contents = []
-    index_page_code.blog_post_tiles.extend(bs4.BeautifulSoup(updated_posts,"html.parser"))
-   
-    # create and save new file
-    with open("index.html", "w", encoding = 'utf-8') as outf:
-        outf.write(index_page_code.prettify())
-        outf.close()
-    
-#///////////////////////    MAIN CODE   ///////////////////////////////
+        archive_section = [p for p in reversed(archived_posts) if not p["featured"]]
 
-currentdir = os.getcwd()
-list_txtfiles = os.listdir(currentdir + "\\blog_txtfiles")
-# print(list_txtfiles)
+    recent_section = unique_pages(recent_section)
+    archive_section = unique_pages(archive_section)
 
-#sort list of files by date written
-dates_written = {}
-for files in list_txtfiles: 
-    var_dict = grab_txtfile_variables(files)
-    date_written = datetime.strptime(var_dict['blog_date'], '%B %d, %Y')
-    dates_written[files] = date_written
-sorted_txtfiles = sorted(list_txtfiles, key = lambda x: dates_written[x])
-# print(sorted_txtfiles)
+    print("\n========== INDEX PAGE ==========")
+    rebuild_index_page(recent_section, archive_section, tile_template)
 
-#clear index page of blog tiles
-refresh_index_page()
+    # 3. related posts on every page, drawn from both folders
+    print("\n========== RELATED POSTS ==========")
+    all_newest_first = sorted(all_posts, key=lambda p: p["date"], reverse=True)
+    tags_dict = build_tags_dict(all_newest_first)
+    for post in all_posts:
+        add_related_posts(post, tags_dict, tile_template)
+    print("related posts updated on", len(all_posts), "pages")
 
-#create blog pages and update index page
-for ii in range(len(sorted_txtfiles)):
 
-    ##define variable dictionaries
-    if (ii == 0): previous_var_dict = {"blog_title": "Main Page", "html_filename": "index.html"}
-    else: previous_var_dict = grab_txtfile_variables(sorted_txtfiles[ii-1])
-    
-    if (ii == len(sorted_txtfiles)-1): next_var_dict = {"blog_title": "Coming Soon", "html_filename": "index.html"}
-    else: next_var_dict = grab_txtfile_variables(sorted_txtfiles[ii+1])
-    
-    var_dict = grab_txtfile_variables(sorted_txtfiles[ii])
-    files = sorted_txtfiles[ii]
-
-    print(var_dict['html_filename'])
-    ##generate blog page 
-    if (not os.path.exists(var_dict['html_filename'])):
-        generate_html_file(var_dict,'prosetemplate_withcommentfunction.html')
-        add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)    
-        print('new file generated')
-
-    elif (var_dict['overwrite_permission']=='yes'):
-        generate_html_file(var_dict,'prosetemplate_withcommentfunction.html')
-        add_prev_next_posts(var_dict, previous_var_dict, next_var_dict)
-        print('previous file overwritten: ' + str(files))
-            
-    else:   
-        print('file already exists, will not overwrite: ' + str(files))
-
-    
-
-    ##update home page to link to blog posts
-    update_index_page(var_dict)
-    print('\n')
-
-#add related posts to each blog page(based on common tags)
-tags_dict = {}
-for files in list(reversed(sorted_txtfiles)): 
-    var_dict = grab_txtfile_variables(files)
-    #create dictionary that has files sorted by tags
-    for tag in var_dict['blog_tags'].split():
-        tags_dict.setdefault(tag,[]).append(files)
-
-for files in sorted_txtfiles:
-    add_related_posts(tags_dict, files)
+if __name__ == "__main__":
+    main()
